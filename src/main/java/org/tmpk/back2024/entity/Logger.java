@@ -10,13 +10,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-
+@Table(name = "logger")
 public class Logger {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="logger_seq")
+    @SequenceGenerator(name="logger_seq",sequenceName="LOGGER_SEQ", allocationSize=1)
     private Long id;
 
-    @Column(name = "actionType")
+    @Column(name = "actiontype")
     private String actionType;
 
     @OneToOne(cascade = CascadeType.ALL)

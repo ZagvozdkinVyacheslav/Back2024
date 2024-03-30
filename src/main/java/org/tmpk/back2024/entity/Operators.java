@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Operators")
+@Table(name = "operators")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class Operators {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "operatorInfoId")
+    @Column(name = "operatorinfoid")
     private Long operatorInfoId;
 
     @Column(name = "login")
@@ -29,9 +29,8 @@ public class Operators {
     @JoinColumn(name = "id")
     private Roles roleId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Operators creatorId;
+    @Column(name = "creatorid")
+    private Long creatorId;
 
     @Column(name = "created")
     private LocalDateTime created;

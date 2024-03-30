@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Expenses")
+@Table(name = "expenses")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class Expenses {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    private Services serviceTypeId;
+    private ServiceTariff serviceTariffId;
 
     @Column(name = "value")
     private Double value;

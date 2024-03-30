@@ -6,7 +6,7 @@ import lombok.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "ClientInfo")
+@Table(name = "clientinfo")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,10 +26,10 @@ public class ClientInfo {
     @Column(name = "middlename")
     private String middlename;
 
-    @Column(name = "organisationName")
+    @Column(name = "organisationname")
     private String organisationName;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phonenumber")
     private String phoneNumber;
 
     @Column(name = "birthdate")
@@ -38,16 +38,16 @@ public class ClientInfo {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "postalCode")
+    @Column(name = "postalcode")
     private String postalCode;
 
     @Column(name = "street")
     private String street;
 
-    @Column(name = "buildingNumber")
+    @Column(name = "buildingnumber")
     private String buildingNumber;
 
-    @Column(name = "flatNumber")
+    @Column(name = "flatnumber")
     private String flatNumber;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Balance")
+@Table(name = "balance")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,10 +17,10 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "balanceValue")
+    @Column(name = "balancevalue")
     private Double balanceValue;
 
-    @Column(name = "limitValue")
+    @Column(name = "limitvalue")
     private Double limitValue;
 
     @Column(name = "modified")

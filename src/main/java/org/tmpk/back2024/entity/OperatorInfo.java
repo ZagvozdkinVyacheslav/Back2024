@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.sql.Date;
 @Entity
-@Table(name = "OperatorInfo")
+@Table(name = "operatorinfo")
 @Getter
 @Setter
 @NoArgsConstructor

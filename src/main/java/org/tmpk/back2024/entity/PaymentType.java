@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PaymentType")
+@Table(name = "paymenttype")
 @Getter
 @Setter
 @NoArgsConstructor

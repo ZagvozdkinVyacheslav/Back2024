@@ -5,7 +5,7 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "ClientStatusType")
+@Table(name = "clientstatustype")
 @Getter
 @Setter
 @NoArgsConstructor
