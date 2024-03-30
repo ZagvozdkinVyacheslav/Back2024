@@ -11,6 +11,7 @@ import org.tmpk.back2024.service.ServiceData;
 import java.util.List;
 
 @RestController("operator")
+@RequestMapping("/api/operator")
 public class OperatorController {
     @Autowired
     OperatorData operatorData;
@@ -27,6 +28,28 @@ public class OperatorController {
             ) {
         return ResponseEntity.ok(operatorData.getOperatorById(operatorId, targetId));
     }
-
+    @PostMapping("/addOperator")//добавить оператора
+    public ResponseEntity<Long> addOperator(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Operators operator
+    ) {
+        return ResponseEntity.ok(operatorData.addOperator(operatorId, operator));
+    }
+    @PutMapping("/changeOperator")//обновить оператора
+    public ResponseEntity<String> changeOperator(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Operators operator
+    ) {
+        operatorData.changeOperator(operatorId, operator);
+        return ResponseEntity.ok("Оператор обновлен");
+    }
+    @PutMapping("/deleteOperator")//обновить оператора
+    public ResponseEntity<String> deleteOperatorById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestParam(value = "targetId") Long targetId
+    ) {
+        operatorData.deleteOperatorById(operatorId, targetId);
+        return ResponseEntity.ok("Оператор удален");
+    }
 
 }

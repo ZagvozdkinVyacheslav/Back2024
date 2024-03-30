@@ -2,6 +2,7 @@ package org.tmpk.back2024.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +18,8 @@ public class Operators {
     @SequenceGenerator(name="operators_seq",sequenceName="OPERATORS_SEQ", allocationSize=1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "operatorinfoid",referencedColumnName = "id")
     private OperatorInfo operatorInfo;
 
     @Column(name = "login")
@@ -27,7 +28,7 @@ public class Operators {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id")
     private Roles role;
 
