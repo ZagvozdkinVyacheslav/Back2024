@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Correction {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="correction_seq")
+    @SequenceGenerator(name="correction_seq",sequenceName="CORRECTION_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "value")

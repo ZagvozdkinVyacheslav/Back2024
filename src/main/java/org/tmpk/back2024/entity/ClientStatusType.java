@@ -13,7 +13,8 @@ import lombok.*;
 public class ClientStatusType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="clientstatustype_seq")
+    @SequenceGenerator(name="clientstatustype_seq",sequenceName="CLIENTSTATUSTYPE_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "name")

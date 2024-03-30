@@ -12,7 +12,8 @@ import java.sql.Date;
 @AllArgsConstructor
 public class OperatorInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="operatorinfo_seq")
+    @SequenceGenerator(name="operatorinfo_seq",sequenceName="OPERATORINFO_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "lastname")
@@ -24,7 +25,7 @@ public class OperatorInfo {
     @Column(name = "middlename")
     private String middlename;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phonenumber")
     private String phoneNumber;
 
     @Column(name = "birthdate")

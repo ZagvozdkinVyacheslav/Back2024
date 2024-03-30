@@ -2,35 +2,33 @@ package org.tmpk.back2024.conroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tmpk.back2024.entity.ServiceTariff;
-import org.tmpk.back2024.repos.ServiceTariffRepo;
-import org.tmpk.back2024.repos.TariffsRepo;
+import org.tmpk.back2024.entity.Services;
+import org.tmpk.back2024.entity.Tariffs;
 import org.tmpk.back2024.service.ServiceData;
 
 import java.util.List;
 
 @RestController("service")
+@RequestMapping("/api/service")
 public class ServiceController {
     @Autowired
     ServiceData serviceData;
-    @PostMapping("/getAllServicesTariff")
+    @GetMapping("/getAllServicesTariff")//все связки тариф услуга
     public ResponseEntity<List<ServiceTariff>> getAllServicesTariff(
             @RequestParam(value = "operatorId") Long operatorId
     ) {
         return ResponseEntity.ok(serviceData.getAllServicesTariff(operatorId));
     }
-    @PostMapping("/getServicesTariffByClientId")
+    @GetMapping("/getServicesTariffByClientId")//все связки тариф услуга по ид клиента
     public ResponseEntity<List<ServiceTariff>> getServicesTariffByClientId(
             @RequestParam(value = "clientId") Long clientId,
             @RequestParam(value = "operatorId") Long operatorId
     ) {
         return ResponseEntity.ok(serviceData.getServicesTariffByClientId(clientId, operatorId));
     }
-    @DeleteMapping("/deleteAllServicesTariffByClientId")
+    @DeleteMapping("/deleteAllServicesTariffByClientId")//Удаляет все услуги у клиента
     public ResponseEntity<String> deleteAllServicesTariffByClientId(
             @RequestParam(value = "clientId") Long clientId,
             @RequestParam(value = "operatorId") Long operatorId
@@ -38,7 +36,7 @@ public class ServiceController {
         serviceData.deleteAllServicesTariffByClientId(clientId, operatorId);
         return ResponseEntity.ok("Удалено успешно");
     }
-    @DeleteMapping("/deleteServicesTariffByItId")
+    @DeleteMapping("/deleteServicesTariffByItId")//Удаляет все услуги по ид клиента
     public ResponseEntity<String> deleteAllServicesTariffById(
             @RequestParam(value = "servicesTariffId") Long itId,
             @RequestParam(value = "operatorId") Long operatorId
@@ -46,7 +44,7 @@ public class ServiceController {
         serviceData.deleteServicesTariffByItId(itId, operatorId);
         return ResponseEntity.ok("Удалено успешно");
     }
-    @PostMapping("/addServicesTariff")
+    @PostMapping("/addServicesTariff")// добавляет клиенту связку тариф услуга
     public ResponseEntity<Long> addServicesTariff(
             @RequestParam(value = "clientId") Long clientId,
             @RequestParam(value = "operatorId") Long operatorId,
@@ -55,5 +53,79 @@ public class ServiceController {
     ) {//return id
         return ResponseEntity.ok(serviceData.addServicesTariff(clientId, serviceId, tariffId, operatorId));
     }
+    @GetMapping("/getAllTariffs")//все тарифы
+    public ResponseEntity<List<Tariffs>> getAllTariffs(
+            @RequestParam(value = "operatorId") Long operatorId
+    ) {
+        return ResponseEntity.ok(serviceData.getAllTariffs(operatorId));
+    }
+    @GetMapping("/getTariffsById")//тариф по ид
+    public ResponseEntity<Tariffs> getTariffsById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestParam(value = "targetId") Long targetId
+    ) {
+        return ResponseEntity.ok(serviceData.getTariffsById(operatorId, targetId));
+    }
+    @PutMapping("/changeTariffById")//тариф меняется по новму телу
+    public ResponseEntity<String> changeTariffById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Tariffs newValue
 
+    ) {
+        serviceData.changeTariff(operatorId, newValue);
+        return ResponseEntity.ok("Тариф изменен");
+    }
+    @PostMapping("/addTariff")//тариф меняется по новму телу
+    public ResponseEntity<Long> addTariff(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Tariffs value
+    ) {
+        return ResponseEntity.ok(serviceData.addTariff(operatorId, value));
+    }
+    @DeleteMapping ("/deleteTariffById")//тариф меняется по новму телу
+    public ResponseEntity<String> deleteTariffById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestParam(value = "targetId") Long targetId
+    ) {
+        serviceData.deleteTariffById(operatorId, targetId);
+        return ResponseEntity.ok("Тариф удален");
+    }
+    @GetMapping("/getAllServices")//все услуги
+    public ResponseEntity<List<Services>> getAllServices(
+            @RequestParam(value = "operatorId") Long operatorId
+    ) {
+        return ResponseEntity.ok(serviceData.getAllServices(operatorId));
+    }
+
+    @GetMapping("/getServicesById")//услуга по ид
+    public ResponseEntity<Services> getServicesById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestParam(value = "targetId") Long targetId
+    ) {
+        return ResponseEntity.ok(serviceData.getServicesById(operatorId, targetId));
+    }
+    @PutMapping("/changeService")//услуга по ид
+    public ResponseEntity<String> changeService(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Services services
+    ) {
+        serviceData.changeService(operatorId, services);
+        return ResponseEntity.ok("Услуга изменена");
+    }
+    @PostMapping("/addService")//добавить услугу
+    public ResponseEntity<Long> addService(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestBody Services services
+    ) {
+
+        return ResponseEntity.ok(serviceData.addService(operatorId, services));
+    }
+    @DeleteMapping ("/deleteServiceById")//Удаление услуги
+    public ResponseEntity<String> deleteServiceById(
+            @RequestParam(value = "operatorId") Long operatorId,
+            @RequestParam(value = "targetId") Long targetId
+    ) {
+        serviceData.deleteServiceById(operatorId, targetId);
+        return ResponseEntity.ok("Тариф удален");
+    }
 }

@@ -11,7 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ClientType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="clienttype_seq")
+    @SequenceGenerator(name="clienttype_seq",sequenceName="CLIENTTYPE_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "name")

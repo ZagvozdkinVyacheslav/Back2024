@@ -11,7 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Expenses {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="expenses_seq")
+    @SequenceGenerator(name="expenses_seq",sequenceName="EXPENSES_SEQ", allocationSize=1)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)

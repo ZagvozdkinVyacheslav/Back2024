@@ -13,7 +13,8 @@ import lombok.*;
 public class Roles {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="roles_seq")
+    @SequenceGenerator(name="roles_seq",sequenceName="ROLES_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "name")

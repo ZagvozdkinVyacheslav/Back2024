@@ -12,7 +12,8 @@ import lombok.*;
 @ToString
 public class Services {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="services_seq")
+    @SequenceGenerator(name="services_seq",sequenceName="SERVICES_SEQ", allocationSize=1)
     private Long id;
     @Column(name = "name")
     private String name;

@@ -13,7 +13,8 @@ import lombok.*;
 public class ServiceTariff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="servicetariff_seq")
+    @SequenceGenerator(name="servicetariff_seq",sequenceName="SERVICETARIFF_SEQ", allocationSize=1)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Operators {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="operators_seq")
+    @SequenceGenerator(name="operators_seq",sequenceName="OPERATORS_SEQ", allocationSize=1)
     private Long id;
 
-    @Column(name = "operatorinfoid")
-    private Long operatorInfoId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private OperatorInfo operatorInfo;
 
     @Column(name = "login")
     private String login;
@@ -27,10 +29,10 @@ public class Operators {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    private Roles roleId;
+    private Roles role;
 
     @Column(name = "creatorid")
-    private Long creatorId;
+    private Long creator;
 
     @Column(name = "created")
     private LocalDateTime created;

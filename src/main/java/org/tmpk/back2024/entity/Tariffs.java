@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class Tariffs {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="tariffs_seq")
+    @SequenceGenerator(name="tariffs_seq",sequenceName="TARIFFS_SEQ", allocationSize=1)
     private Long id;
     @Column(name = "description")
     private String description;

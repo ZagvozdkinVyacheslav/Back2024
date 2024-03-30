@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Clients {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="clients_seq")
+    @SequenceGenerator(name="clients_seq",sequenceName="CLIENTS_SEQ", allocationSize=1)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)

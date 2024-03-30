@@ -14,7 +14,9 @@ import java.sql.Date;
 public class ClientInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="clientinfo_seq")
+    @SequenceGenerator(name="clientinfo_seq",sequenceName="CLIENTINFO_SEQ", allocationSize=1)
+
     private Long id;
 
     @Column(name = "lastname")
@@ -52,6 +54,6 @@ public class ClientInfo {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    private Clients clientTypeId;
+    private ClientType clientTypeId;
 
 }

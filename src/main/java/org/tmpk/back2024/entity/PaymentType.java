@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 public class PaymentType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="paymenttype_seq")
+    @SequenceGenerator(name="paymenttype_seq",sequenceName="PAYMENTTYPE_SEQ", allocationSize=1)
     private Long id;
 
     @Column(name = "name")

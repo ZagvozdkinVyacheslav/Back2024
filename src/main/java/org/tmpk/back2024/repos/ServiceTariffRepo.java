@@ -12,4 +12,8 @@ import java.util.List;
 public interface ServiceTariffRepo extends JpaRepository<ServiceTariff,Long> {
     @Query(value = "SELECT * FROM servicetariff WHERE clientid = ?1", nativeQuery = true)
     List<ServiceTariff> findAllByClientId(Long id);
+    @Query(value = "DELETE FROM servicetariff WHERE tariffsid = ?1", nativeQuery = true)
+    void deleteAllByTariffId(Long id);
+    @Query(value = "DELETE FROM servicetariff WHERE servicesid = ?1", nativeQuery = true)
+    void deleteAllByServiceId(Long id);
 }
