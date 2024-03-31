@@ -52,8 +52,8 @@ public class ClientInfo {
     @Column(name = "flatnumber")
     private String flatNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private ClientType clientTypeId;
+    @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "clienttypeid",referencedColumnName = "id")
+    private ClientType clientType;
 
 }

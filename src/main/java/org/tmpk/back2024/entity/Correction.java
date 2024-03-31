@@ -20,13 +20,11 @@ public class Correction {
     @Column(name = "value")
     private Double value;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Clients clientId;
+    @Column(name = "clientid")
+    private Long clientId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Operators operatorId;
+    @Column(name = "operatorid")
+    private Long operatorId;
 
     @Column(name = "created")
     private LocalDateTime created;

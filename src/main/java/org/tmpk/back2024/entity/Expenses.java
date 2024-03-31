@@ -15,13 +15,13 @@ public class Expenses {
     @SequenceGenerator(name="expenses_seq",sequenceName="EXPENSES_SEQ", allocationSize=1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Clients clientId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private ServiceTariff serviceTariffId;
+    @Column(name = "clientid")
+    private Long clientId;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "servicetariffid",referencedColumnName = "id")
+    private ServiceTariff serviceTariff;
 
     @Column(name = "value")
     private Double value;

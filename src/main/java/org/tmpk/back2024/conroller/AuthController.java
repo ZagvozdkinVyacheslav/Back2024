@@ -33,6 +33,7 @@ public class AuthController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/logOut")
     public ResponseEntity<?> logOut(
             HttpServletRequest request

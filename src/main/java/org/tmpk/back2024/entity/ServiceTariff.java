@@ -17,14 +17,14 @@ public class ServiceTariff {
     @SequenceGenerator(name="servicetariff_seq",sequenceName="SERVICETARIFF_SEQ", allocationSize=1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Clients clientId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Tariffs tariffsId;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Services servicesId;
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
+    @JoinColumn(name = "clientid",referencedColumnName = "id")
+    private Clients client;
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
+    @JoinColumn(name = "tariffsid",referencedColumnName = "id")
+    private Tariffs tariffs;
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
+    @JoinColumn(name = "servicesid",referencedColumnName = "id")
+    private Services services;
 
 }

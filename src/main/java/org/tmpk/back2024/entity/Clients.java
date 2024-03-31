@@ -18,20 +18,20 @@ public class Clients {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Balance balanceId;
+    @JoinColumn(name = "balanceid",referencedColumnName = "id")
+    private Balance balance;
+
+    @OneToOne(cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "clientstatustypeid",referencedColumnName = "id")
+    private ClientStatusType clientStatusType;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private ClientStatusType clientStatusTypeId;
+    @JoinColumn(name = "clientinfoid",referencedColumnName = "id")
+    private ClientInfo clientInfo;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private ClientInfo clientInfoId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Operators creatorId;
+    @Column(name = "creatorid")
+    private Long creatorId;
 
     @Column(name = "created")
     private LocalDateTime created;

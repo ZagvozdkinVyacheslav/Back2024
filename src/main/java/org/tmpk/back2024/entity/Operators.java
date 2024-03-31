@@ -17,8 +17,7 @@ public class Operators {
     @GeneratedValue(generator="operators_seq")
     @SequenceGenerator(name="operators_seq",sequenceName="OPERATORS_SEQ", allocationSize=1)
     private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "operatorinfoid",referencedColumnName = "id")
     private OperatorInfo operatorInfo;
 
@@ -28,8 +27,8 @@ public class Operators {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "roleid",referencedColumnName = "id")
     private Roles role;
 
     @Column(name = "creatorid")

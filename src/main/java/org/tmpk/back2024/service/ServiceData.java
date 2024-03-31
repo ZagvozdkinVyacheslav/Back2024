@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.tmpk.back2024.entity.ServiceTariff;
 import org.tmpk.back2024.entity.Services;
 import org.tmpk.back2024.entity.Tariffs;
-import org.tmpk.back2024.repos.ClientsRepo;
-import org.tmpk.back2024.repos.ServiceTariffRepo;
-import org.tmpk.back2024.repos.ServicesRepo;
-import org.tmpk.back2024.repos.TariffsRepo;
+import org.tmpk.back2024.repos.*;
 
 import java.util.List;
 
@@ -22,6 +19,8 @@ public class ServiceData {
     ServicesRepo serviceRepo;
     @Autowired
     TariffsRepo tariffsRepo;
+    @Autowired
+    ClientStatusTypeRepo clientStatusTypeRepo;
     @Autowired
     LoggerService loggerService;
     public List<ServiceTariff> getAllServicesTariff(Long operatorId) {
@@ -41,15 +40,18 @@ public class ServiceData {
     }
 
     public void deleteServicesTariffByItId(Long serviceTariffId, Long operatorId) {
-        var msg = String.format("deleteServicesTariffByItId, client id = %s", serviceTariffRepo.findById(serviceTariffId).get().getClientId().getId());
+        var msg = String.format("deleteServicesTariffByItId, client id = %s", serviceTariffRepo.findById(serviceTariffId).get().getClient().getId());
         loggerService.addLog(msg, null, operatorId);
         serviceTariffRepo.deleteById(serviceTariffId);
     }
     public Long addServicesTariff(Long clientId, Long serviceId, Long tariffId, Long operatorId) {
+        var client = clientsRepo.findById(clientId).get();
+        client.setClientStatusType(clientStatusTypeRepo.findByName("Активен"));
+        clientsRepo.save(client);
         var serviceTariff = new ServiceTariff();
-        serviceTariff.setClientId(clientsRepo.findById(clientId).get());
-        serviceTariff.setServicesId(serviceRepo.findById(serviceId).get());
-        serviceTariff.setTariffsId(tariffsRepo.findById(tariffId).get());
+        serviceTariff.setClient(client);
+        serviceTariff.setServices(serviceRepo.findById(serviceId).get());
+        serviceTariff.setTariffs(tariffsRepo.findById(tariffId).get());
         var id = serviceTariffRepo.save(serviceTariff).getId();
         loggerService.addLog(String.format("addServicesTariff id = %s",id), clientId, operatorId);
         return id;

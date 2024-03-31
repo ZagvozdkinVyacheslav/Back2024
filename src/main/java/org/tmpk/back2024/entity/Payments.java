@@ -15,13 +15,12 @@ public class Payments {
     @SequenceGenerator(name="payments_seq",sequenceName="PAYMENTS_SEQ", allocationSize=1)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Clients clientId;
+    @Column(name = "clientid")
+    private Long clientId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private PaymentType paymentTypeId;
+    @OneToOne(cascade = {CascadeType.DETACH})
+    @JoinColumn(name = "paymenttypeid",referencedColumnName = "id")
+    private PaymentType paymentType;
 
     @Column(name = "value")
     private Double value;
