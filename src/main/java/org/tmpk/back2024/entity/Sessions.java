@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Session {
+public class Sessions {
     @Id
     @GeneratedValue(generator="sessions_seq")
     @SequenceGenerator(name="sessions_seq",sequenceName="SESSIONS_SEQ", allocationSize=1)

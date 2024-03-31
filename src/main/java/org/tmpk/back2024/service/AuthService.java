@@ -3,17 +3,14 @@ package org.tmpk.back2024.service;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.tmpk.back2024.entity.Operators;
-import org.tmpk.back2024.entity.Session;
+import org.tmpk.back2024.entity.Sessions;
 import org.tmpk.back2024.repos.LoggerRepo;
 import org.tmpk.back2024.repos.OperatorRepo;
 import org.tmpk.back2024.repos.SessionsRepo;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
@@ -28,7 +25,7 @@ public class AuthService {
     @Autowired
     private OperatorData operatorData;
 
-    public Session logIn(String login, String password) {
+    public Sessions logIn(String login, String password) {
         Long operatorId = checkAuth(login, password);
         if (operatorId != null) {
             return createOrUpdateSession(operatorId);
@@ -36,22 +33,22 @@ public class AuthService {
         return null;
     }
 
-    public Session logOut(Long operatorId) {
-        Session session = getNonExpiredSessionByOperatorId(operatorId);
-        if (session != null) {
-            session.setExpiryTime(LocalDateTime.now());
-            sessionsRepo.save(session);
-            return session;
+    public Sessions logOut(Long operatorId) {
+        Sessions sessions = getNonExpiredSessionByOperatorId(operatorId);
+        if (sessions != null) {
+            sessions.setExpiryTime(LocalDateTime.now());
+            sessionsRepo.save(sessions);
+            return sessions;
         }
         return null;
     }
 
-    public Session logOut(String token) {
-        Session session = getNonExpiredSessionByToken(token);
-        if (session != null) {
-            session.setExpiryTime(LocalDateTime.now());
-            sessionsRepo.save(session);
-            return session;
+    public Sessions logOut(String token) {
+        Sessions sessions = getNonExpiredSessionByToken(token);
+        if (sessions != null) {
+            sessions.setExpiryTime(LocalDateTime.now());
+            sessionsRepo.save(sessions);
+            return sessions;
         }
         return null;
     }
@@ -84,29 +81,29 @@ public class AuthService {
         }
     }
 
-    public Session getNonExpiredSessionByToken(String token) {
+    public Sessions getNonExpiredSessionByToken(String token) {
         return sessionsRepo.findNonExpiredSessionByToken(token);
     }
 
-    public Session getNonExpiredSessionByOperatorId(Long operatorId) {
+    public Sessions getNonExpiredSessionByOperatorId(Long operatorId) {
         return sessionsRepo.findNonExpiredSessionByOperatorId(operatorId);
     }
 
-    private Session createOrUpdateSession(Long operatorId) {
-        Session session = getNonExpiredSessionByOperatorId(operatorId);
-        if (session != null) {
-            session.setExpiryTime(LocalDateTime.now().plusMinutes(30));
-            sessionsRepo.save(session);
-            return session;
+    private Sessions createOrUpdateSession(Long operatorId) {
+        Sessions sessions = getNonExpiredSessionByOperatorId(operatorId);
+        if (sessions != null) {
+            sessions.setExpiryTime(LocalDateTime.now().plusMinutes(30));
+            sessionsRepo.save(sessions);
+            return sessions;
         }
-        session = Session.builder()
+        sessions = Sessions.builder()
                 .operatorId(operatorId)
                 .created(LocalDateTime.now())
                 .expiryTime(LocalDateTime.now().plusMinutes(30))
                 .token(UUID.randomUUID().toString().replaceAll("-", ""))
                 .build();
-        sessionsRepo.save(session);
-        return session;
+        sessionsRepo.save(sessions);
+        return sessions;
     }
 
 }

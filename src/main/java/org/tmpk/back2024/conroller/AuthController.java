@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.tmpk.back2024.entity.Session;
+import org.tmpk.back2024.entity.Sessions;
 import org.tmpk.back2024.service.AuthService;
 import org.tmpk.back2024.service.OperatorData;
 
@@ -20,14 +20,13 @@ public class AuthController {
 
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/logIn")
-    public ResponseEntity<Session> logIn(
+    public ResponseEntity<Sessions> logIn(
             @RequestParam(value = "login") String login,
             @RequestParam(value = "password") String password
     ) {
-        Session session = authService.logIn(login, password);
-        if (session != null) {
-            log.info(session.toString());
-            return ResponseEntity.ok(session);
+        Sessions sessions = authService.logIn(login, password);
+        if (sessions != null) {
+            return ResponseEntity.ok(sessions);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -39,14 +38,13 @@ public class AuthController {
             HttpServletRequest request
     ) {
         String token = request.getHeader("Authorization");
-        log.info("token = {}", token);
         if (!authService.checkAuth(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        Session session = authService.logOut(token.split(" ")[1]);
-        if (session != null) {
-            return ResponseEntity.ok(session);
+        Sessions sessions = authService.logOut(token.split(" ")[1]);
+        if (sessions != null) {
+            return ResponseEntity.ok(sessions);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
