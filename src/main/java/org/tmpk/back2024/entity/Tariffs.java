@@ -24,6 +24,8 @@ public class Tariffs {
     @Column(name = "price")
     private Double price;
     @Column(name = "howoftenpermonth")
-    private Double howoftenpermonth;
+    private Integer howoftenpermonth;
+    @Column(name = "ispaided")
+    private Boolean ispaided;
 
 }

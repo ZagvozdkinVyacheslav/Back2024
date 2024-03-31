@@ -47,11 +47,13 @@ public class ServiceData {
     public Long addServicesTariff(Long clientId, Long serviceId, Long tariffId, Long operatorId) {
         var client = clientsRepo.findById(clientId).get();
         client.setClientStatusType(clientStatusTypeRepo.findByName("Активен"));
+        var tariff = tariffsRepo.findById(tariffId).get();
+        client.getBalance().setBalanceValue(client.getBalance().getBalanceValue() - tariff.getPrice());
         clientsRepo.save(client);
         var serviceTariff = new ServiceTariff();
         serviceTariff.setClientid(client.getId());
         serviceTariff.setServices(serviceRepo.findById(serviceId).get());
-        serviceTariff.setTariffs(tariffsRepo.findById(tariffId).get());
+        serviceTariff.setTariffs(tariff);
         var id = serviceTariffRepo.save(serviceTariff).getId();
         loggerService.addLog(String.format("addServicesTariff id = %s",id), clientId, operatorId);
         return id;
