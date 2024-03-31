@@ -25,5 +25,6 @@ public class ServiceTariff {
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
     @JoinColumn(name = "servicesid",referencedColumnName = "id")
     private Services services;
-
+    @Column(name = "ispaided")
+    private Boolean ispaided;
 }
