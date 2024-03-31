@@ -40,7 +40,7 @@ public class ServiceData {
     }
 
     public void deleteServicesTariffByItId(Long serviceTariffId, Long operatorId) {
-        var msg = String.format("deleteServicesTariffByItId, client id = %s", serviceTariffRepo.findById(serviceTariffId).get().getClient().getId());
+        var msg = String.format("deleteServicesTariffByItId, client id = %s", serviceTariffRepo.findById(serviceTariffId).get().getClientid());
         loggerService.addLog(msg, null, operatorId);
         serviceTariffRepo.deleteById(serviceTariffId);
     }
@@ -49,7 +49,7 @@ public class ServiceData {
         client.setClientStatusType(clientStatusTypeRepo.findByName("Активен"));
         clientsRepo.save(client);
         var serviceTariff = new ServiceTariff();
-        serviceTariff.setClient(client);
+        serviceTariff.setClientid(client.getId());
         serviceTariff.setServices(serviceRepo.findById(serviceId).get());
         serviceTariff.setTariffs(tariffsRepo.findById(tariffId).get());
         var id = serviceTariffRepo.save(serviceTariff).getId();

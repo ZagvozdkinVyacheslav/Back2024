@@ -23,5 +23,7 @@ public class Tariffs {
     private String description;
     @Column(name = "price")
     private Double price;
+    @Column(name = "howoftenpermonth")
+    private Double howoftenpermonth;
 
 }

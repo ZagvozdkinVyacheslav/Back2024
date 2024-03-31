@@ -17,9 +17,8 @@ public class ServiceTariff {
     @SequenceGenerator(name="servicetariff_seq",sequenceName="SERVICETARIFF_SEQ", allocationSize=1)
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
-    @JoinColumn(name = "clientid",referencedColumnName = "id")
-    private Clients client;
+    @Column(name = "clientid")
+    private Long clientid;
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
     @JoinColumn(name = "tariffsid",referencedColumnName = "id")
     private Tariffs tariffs;
