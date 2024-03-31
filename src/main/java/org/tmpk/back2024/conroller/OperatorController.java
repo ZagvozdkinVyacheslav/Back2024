@@ -21,6 +21,8 @@ public class OperatorController {
     ) {
         return ResponseEntity.ok(operatorData.getAllOperators(operatorId));
     }
+
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/getOperatorById")//получение оператора по ид
     public ResponseEntity<Operators> getAllOperators(
             @RequestParam(value = "operatorId") Long operatorId,

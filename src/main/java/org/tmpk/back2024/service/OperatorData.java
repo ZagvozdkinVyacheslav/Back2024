@@ -57,4 +57,7 @@ public class OperatorData {
         operatorRepo.delete(operator);
         loggerService.addLog(String.format("deleteOperatorById id = %d", targetId), null, operatorId);
     }
+    public Operators getOperatorByLogin(String login) {
+        return operatorRepo.findByLogin(login);
+    }
 }
